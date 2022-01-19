@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- I emit the signal here inside the div element directly (it is suposed to close the dialog by clicking on the background of the dialog) (the div is set as background by the css)-->
     <div @click="$emit('close')"></div>
     <dialog open>
       <header>
@@ -13,7 +12,6 @@
       </section>
       <menu>
         <slot name="actions">
-          <!-- I emit the signal also here inside the button element directly to also close the dialog-->
           <button @click="$emit('close')">Close</button>
         </slot>
       </menu>
@@ -40,7 +38,7 @@ div {
   position: fixed;
   top: 0;
   left: 0;
-  height: 100vh;
+  height: 110vh;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.75);
   z-index: 900;
@@ -48,7 +46,7 @@ div {
 
 dialog {
   position: fixed;
-  top: 20vh;
+  top: 5vh;
   left: 10%;
   width: 80%;
   z-index: 1000;

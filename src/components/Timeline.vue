@@ -6,13 +6,19 @@
           <div>
             <p>Name:</p>
             <p>Tags:</p>
-            <p>Date:</p>
-            <p>Description:</p>
           </div>
 
           <div>
             <p>{{ dialogContent.name.first }} {{ dialogContent.name.last }}</p>
             <span v-for="tag in dialogContent.tags" :key="tag" :tag="tag">{{ `${tag}, ` }}</span>
+          </div>
+        </div>
+        <div class="flex-info">
+          <div>
+            <p>Date:</p>
+          </div>
+
+          <div>
             <p>
               {{
                 `${dialogContent.myDate.getDate()}, ${
@@ -20,9 +26,11 @@
                 }, ${dialogContent.myDate.getFullYear()}`
               }}
             </p>
-
-            <p>{{ dialogContent.about }}</p>
           </div>
+        </div>
+        <div class="text-align">
+          <p>Description:</p>
+          <p>{{ dialogContent.about }}</p>
         </div>
       </template>
       <template #actions>
@@ -162,6 +170,9 @@ export default {
   display: flex;
   gap: 20px;
   justify-content: flex-start;
+}
+.text-align {
+  text-align: left;
 }
 .left-post-joint {
   position: relative;
