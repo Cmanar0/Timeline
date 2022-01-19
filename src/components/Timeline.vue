@@ -76,7 +76,7 @@
           class="box mg-left-15"
           :class="{ none: post.myId % 2 == 0 }"
         >
-          <div v-if="post.myId % 2 == 1" class="content-box">
+          <div v-if="post.myId % 2 == 1" class="content-box" @click="setDialogOn(post)">
             <i :class="post.randomIcon"></i>
             <div class="date">
               <p>
