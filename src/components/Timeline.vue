@@ -2,7 +2,6 @@
   <div class="container">
     <div class="line" id="line">
       <div v-for="post in myPostsList" :key="post.id" :post="post" class="invis-height"></div>
-      <div class="invis-height-short"></div>
     </div>
     <div class="time-line">
       <div class="left-column">
@@ -11,7 +10,7 @@
           v-for="post in myPostsList"
           :key="post.id"
           :post="post"
-          class="box"
+          class="box mg-right-15"
           :class="{ none: post.myId % 2 == 1 }"
         >
           <div v-if="post.myId % 2 == 0" class="content-box">
@@ -45,7 +44,7 @@
           v-for="post in myPostsList"
           :key="post.id"
           :post="post"
-          class="box"
+          class="box mg-left-15"
           :class="{ none: post.myId % 2 == 0 }"
         >
           <div v-if="post.myId % 2 == 1" class="content-box">
@@ -123,7 +122,7 @@ export default {
   position: relative;
   display: flex;
   z-index: 100;
-  left: 18px;
+  left: 33px;
   bottom: 45px;
   margin-left: auto;
 }
@@ -137,11 +136,13 @@ export default {
   border: 2px solid rgba(13, 81, 132, 255);
   height: 0;
   width: 20%;
+  background-color: rgba(13, 81, 132, 255);
 }
 .joint-right {
   border: 2px solid rgba(13, 81, 132, 255);
   height: 0;
   width: 20%;
+  background-color: rgba(13, 81, 132, 255);
 }
 .joint::before {
   font-family: 'Font Awesome 5 Free';
@@ -165,7 +166,7 @@ export default {
   display: flex;
   position: relative;
   z-index: 100;
-  right: 18px;
+  right: 30px;
   bottom: 45px;
   margin-right: auto;
 }
@@ -215,7 +216,7 @@ export default {
 }
 
 .invis-height {
-  height: 90px;
+  height: 85px;
   border: 1px solid red;
   width: 50vw;
   position: relative;
@@ -246,28 +247,17 @@ export default {
   right: calc(50% + 1px);
   top: 7px;
 }
-.time-line .bottom-p {
-  position: relative;
-  left: -9px;
-  top: calc(auto - 20px);
-}
-.point {
-  height: 15px;
-  width: 15px;
-  background-color: rgba(13, 81, 132, 255);
-  border-radius: 50%;
-}
+
 .time-line {
   display: flex;
   flex-direction: row;
 }
 .line {
   border-left: 4px solid rgba(13, 81, 132, 255);
-  height: calc(auto - 200px);
+  max-height: calc(auto - 300px) !important;
   position: absolute;
   left: 50%;
-  top: 20px;
-  margin-left: -3px;
+  top: 60px;
 }
 .container {
   padding: 0.5rem;
@@ -275,6 +265,12 @@ export default {
 }
 p {
   margin: 0;
+}
+.mg-left-15 {
+  margin-left: 15px;
+}
+.mg-right-15 {
+  margin-right: 15px;
 }
 </style>
 <style>
