@@ -13,6 +13,7 @@
         <div><p>sadasdads</p></div>
         <div><p>sadasdads</p></div>
         <div><p>sadasdads</p></div>
+        <i class="fas fa-address-card"></i>
       </div>
     </div>
   </div>
@@ -32,7 +33,7 @@ export default {
 #line::before {
   font-family: 'Font Awesome 5 Free';
   font-weight: 900;
-  content: '\f007';
+  content: '\f2bb';
   position: relative;
   left: -50px;
   top: 0;
