@@ -31,10 +31,10 @@
                 {{ post.about }}
               </div>
             </div>
-            <div class="left-post-joint">
-              <div class="blank"></div>
-              <div class="joint"></div>
-            </div>
+          </div>
+          <div class="left-post-joint">
+            <div class="blank"></div>
+            <div class="joint"></div>
           </div>
         </div>
       </div>
@@ -65,10 +65,10 @@
                 {{ post.about }}
               </div>
             </div>
-            <div class="right-post-joint">
-              <div class="joint-right"></div>
-              <div class="blank"></div>
-            </div>
+          </div>
+          <div class="right-post-joint">
+            <div class="joint-right"></div>
+            <div class="blank"></div>
           </div>
         </div>
       </div>
@@ -121,13 +121,14 @@ export default {
 .left-post-joint {
   position: relative;
   display: flex;
-  z-index: 100;
-  left: 33px;
+  z-index: 10;
+  left: 25px;
   bottom: 45px;
   margin-left: auto;
+  height: 0;
 }
 .blank {
-  border: 2px solid rgba(13, 81, 132, 255);
+  visibility: hidden;
   height: 0;
   width: 80%;
   opacity: 0;
@@ -147,26 +148,32 @@ export default {
 .joint::before {
   font-family: 'Font Awesome 5 Free';
   font-weight: 900;
+  font-size: 25px;
+
   content: '\f111';
   position: relative;
   left: -50%;
-  top: -10px;
+  top: -12px;
   color: rgba(13, 81, 132, 255);
 }
 .joint-right::after {
   font-family: 'Font Awesome 5 Free';
   font-weight: 900;
+  font-size: 25px;
   content: '\f111';
   position: relative;
   right: -50%;
-  top: -10px;
+  top: -12px;
   color: rgba(13, 81, 132, 255);
 }
+
 .right-post-joint {
   display: flex;
   position: relative;
   z-index: 100;
-  right: 30px;
+  right: 22px;
+  height: 0;
+
   bottom: 45px;
   margin-right: auto;
 }
@@ -201,6 +208,7 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   width: 80%;
+  max-width: 200px;
   text-overflow: ellipsis;
   font-size: 18px;
 }
@@ -212,7 +220,16 @@ export default {
   font-size: 30px;
 }
 .content-box {
+  transform: scale(1);
+  transition: 500ms ease-in-out;
+  z-index: 250;
   padding: 0 0.6rem;
+  cursor: pointer;
+  /* background-color: cornsilk; */
+}
+.content-box:hover {
+  transform: scale(1.05);
+  transition: 500ms ease-in-out;
 }
 
 .invis-height {
@@ -232,32 +249,37 @@ export default {
 #line::before {
   font-family: 'Font Awesome 5 Free';
   font-weight: 900;
+  font-size: 25px;
   content: '\f111';
   position: relative;
-  right: calc(50% + 1px);
+  right: calc(50% + 13.5px);
   top: -7px;
   color: rgba(13, 81, 132, 255);
 }
 #line::after {
   font-family: 'Font Awesome 5 Free';
   font-weight: 900;
+  font-size: 25px;
   content: '\f111';
   color: rgba(13, 81, 132, 255);
   position: relative;
-  right: calc(50% + 1px);
+  right: calc(50% + 13.5px);
   top: 7px;
 }
 
 .time-line {
   display: flex;
   flex-direction: row;
+  z-index: 10;
 }
 .line {
   border-left: 4px solid rgba(13, 81, 132, 255);
-  max-height: calc(auto - 300px) !important;
+  max-height: calc(auto - 300px);
   position: absolute;
+  z-index: 0;
   left: 50%;
   top: 60px;
+  width: 1px;
 }
 .container {
   padding: 0.5rem;
