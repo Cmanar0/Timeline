@@ -1,34 +1,19 @@
 <template>
   <div class="container">
+    <div class="line" id="line">
+      <div v-for="post in myPostsList" :key="post.id" :post="post" class="invis-height"></div>
+      <div class="invis-height"></div>
+    </div>
     <div class="time-line">
-      <div class="line" id="line">
-        <div v-for="post in myPostsList" :key="post.id" :post="post" class="invis-height"></div>
-      </div>
-      <div class="mg-top-26"></div>
-      <div v-for="post in myPostsList" :key="post.id" :post="post" class="time-point">
-        <div class="content">
-          <div v-if="post.myID % 2 == 1" class="content-box">
-            <i :class="post.randomIcon"></i>
-            <div class="date">
-              <p>
-                {{ post.registered }}
-              </p>
-            </div>
-            <div class="name">
-              <p>
-                {{ post.name.first }}
-                {{ post.name.last }}
-              </p>
-            </div>
-            <div class="shorten-flex">
-              <div class="shorten-text">
-                {{ post.about }}
-              </div>
-            </div>
-          </div>
-          <div v-else></div>
-        </div>
-        <div class="content">
+      <div class="left-column">
+        <div class="mg-top-50"></div>
+        <div
+          v-for="post in myPostsList"
+          :key="post.id"
+          :post="post"
+          class="box"
+          :class="{ none: post.myID % 2 == 1 }"
+        >
           <div v-if="post.myID % 2 == 0" class="content-box">
             <i :class="post.randomIcon"></i>
             <div class="date">
@@ -47,8 +32,39 @@
                 {{ post.about }}
               </div>
             </div>
+            <div class="left-post-joint"></div>
           </div>
-          <div v-else></div>
+        </div>
+      </div>
+      <div class="right-column">
+        <div class="mg-top-90"></div>
+        <div
+          v-for="post in myPostsList"
+          :key="post.id"
+          :post="post"
+          class="box"
+          :class="{ none: post.myID % 2 == 0 }"
+        >
+          <div v-if="post.myID % 2 == 1" class="content-box">
+            <i :class="post.randomIcon"></i>
+            <div class="date">
+              <p>
+                {{ post.registered }}
+              </p>
+            </div>
+            <div class="name">
+              <p>
+                {{ post.name.first }}
+                {{ post.name.last }}
+              </p>
+            </div>
+            <div class="shorten-flex">
+              <div class="shorten-text">
+                {{ post.about }}
+              </div>
+            </div>
+            <div class="right-post-joint"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -91,6 +107,44 @@ export default {
 </script>
 
 <style scoped>
+.left-post-joint {
+  border: 2px solid;
+  position: relative;
+  width: 20%;
+  z-index: 100;
+  left: 50px;
+  bottom: 45px;
+  margin-left: auto;
+  color: rgba(13, 81, 132, 255);
+}
+.right-post-joint {
+  border: 2px solid;
+  position: relative;
+  width: 20%;
+  z-index: 100;
+  right: 50px;
+  bottom: 45px;
+  margin-right: auto;
+  color: rgba(13, 81, 132, 255);
+}
+.none {
+  display: none;
+}
+.left-column {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+.right-column {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+.box {
+  min-height: 140px;
+  padding: 20px;
+  border: 1px solid slategrey;
+}
 .date {
   font-size: 20px;
   font-weight: 700;
@@ -114,23 +168,11 @@ export default {
   font-size: 30px;
 }
 .content-box {
-  padding: 0 15px 0 15px;
+  padding: 0 30px 0 30px;
 }
-.time-point {
-  padding: 15px;
-  height: 130px;
-  display: flex;
-  z-index: 50;
-  width: 80%;
-  position: relative;
-  top: -50px;
-  border: 1px solid red;
-}
-.content {
-  width: 50%;
-}
+
 .invis-height {
-  height: 158px;
+  height: 90px;
   border: 1px solid red;
   width: 50vw;
   position: relative;
@@ -167,12 +209,11 @@ export default {
 }
 .time-line {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
 }
 .line {
   border-left: 4px solid rgba(13, 81, 132, 255);
-  height: calc(auto - 40px);
+  height: calc(auto + 100px);
   position: absolute;
   left: 50%;
   top: 20px;
@@ -184,13 +225,8 @@ export default {
 p {
   margin: 0;
 }
-@media (min-width: 750px) {
-}
 </style>
 <style>
-#app {
-  margin: 0;
-}
 body {
   width: 100%;
   margin: 0;
@@ -206,8 +242,11 @@ body {
 .mg-top-20 {
   margin-top: 20px;
 }
-.mg-top-26 {
-  margin-top: 26px;
+.mg-top-50 {
+  margin-top: 50px;
+}
+.mg-top-90 {
+  margin-top: 140px;
 }
 .mg-bot-10 {
   margin-bottom: 10px;
