@@ -26,8 +26,12 @@ export default {
   name: 'HelloWorld',
   data() {
     return {
-      postsList
+      postsList,
+      myPostsList: null
     }
+  },
+  created() {
+    this.myPostsList = [...this.postsList]
   },
   methods: {
     aaa() {
