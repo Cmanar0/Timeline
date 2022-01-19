@@ -9,26 +9,44 @@
         <div class="content">
           <div v-if="post.myID % 2 == 1" class="content-box">
             <i :class="post.randomIcon"></i>
-            <p>
-              {{ post.name.first }}
-              {{ post.name.last }}
-            </p>
-            <p>
-              {{ post.about }}
-            </p>
+            <div class="date">
+              <p>
+                {{ post.registered }}
+              </p>
+            </div>
+            <div class="name">
+              <p>
+                {{ post.name.first }}
+                {{ post.name.last }}
+              </p>
+            </div>
+            <div class="shorten-flex">
+              <div class="shorten-text">
+                {{ post.about }}
+              </div>
+            </div>
           </div>
           <div v-else></div>
         </div>
         <div class="content">
           <div v-if="post.myID % 2 == 0" class="content-box">
             <i :class="post.randomIcon"></i>
-            <p>
-              {{ post.name.first }}
-              {{ post.name.last }}
-            </p>
-            <p>
-              {{ post.about }}
-            </p>
+            <div class="date">
+              <p>
+                {{ post.registered }}
+              </p>
+            </div>
+            <div class="name">
+              <p>
+                {{ post.name.first }}
+                {{ post.name.last }}
+              </p>
+            </div>
+            <div class="shorten-flex">
+              <div class="shorten-text">
+                {{ post.about }}
+              </div>
+            </div>
           </div>
           <div v-else></div>
         </div>
@@ -73,6 +91,25 @@ export default {
 </script>
 
 <style scoped>
+.date {
+  font-size: 20px;
+  font-weight: 700;
+  color: rgba(13, 81, 132, 255);
+}
+.name {
+  font-size: 20px;
+}
+.shorten-text {
+  white-space: nowrap;
+  overflow: hidden;
+  width: 80%;
+  text-overflow: ellipsis;
+  font-size: 18px;
+}
+.shorten-flex {
+  display: flex;
+  justify-content: center;
+}
 .icon {
   font-size: 30px;
 }
@@ -80,12 +117,13 @@ export default {
   padding: 0 15px 0 15px;
 }
 .time-point {
-  padding: 30px;
-  height: 100px;
+  padding: 15px;
+  height: 130px;
   display: flex;
   z-index: 50;
   width: 80%;
   position: relative;
+  top: -50px;
   border: 1px solid red;
 }
 .content {
@@ -145,6 +183,8 @@ export default {
 }
 p {
   margin: 0;
+}
+@media (min-width: 750px) {
 }
 </style>
 <style>
