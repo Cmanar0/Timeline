@@ -2,17 +2,35 @@
   <div class="container">
     <div class="time-line">
       <div class="line" id="line">
-        <div v-for="post in postsList" :key="post.id" :post="post" class="invis-height"></div>
+        <div v-for="post in myPostsList" :key="post.id" :post="post" class="invis-height"></div>
       </div>
       <div class="mg-top-26"></div>
-      <div v-for="post in postsList" :key="post.id" :post="post" class="time-point">
-        <div class="blank"></div>
+      <div v-for="post in myPostsList" :key="post.id" :post="post" class="time-point">
         <div class="content">
-          <div class="content-box">
+          <div v-if="post.myID % 2 == 1" class="content-box">
+            <i :class="post.randomIcon"></i>
             <p>
-              {{ post._id }}
+              {{ post.name.first }}
+              {{ post.name.last }}
+            </p>
+            <p>
+              {{ post.about }}
             </p>
           </div>
+          <div v-else></div>
+        </div>
+        <div class="content">
+          <div v-if="post.myID % 2 == 0" class="content-box">
+            <i :class="post.randomIcon"></i>
+            <p>
+              {{ post.name.first }}
+              {{ post.name.last }}
+            </p>
+            <p>
+              {{ post.about }}
+            </p>
+          </div>
+          <div v-else></div>
         </div>
       </div>
     </div>
@@ -21,17 +39,30 @@
 
 <script>
 import { postsList } from './data.js'
+import { iconsList } from './data.js'
 
 export default {
   name: 'HelloWorld',
   data() {
     return {
       postsList,
-      myPostsList: null
+      iconsList,
+      myPostsList: null,
+      iconsListRandom: null
     }
   },
+
   created() {
+    function getRandom(min, max) {
+      return Math.floor(Math.random() * (max - min)) + min
+    }
     this.myPostsList = [...this.postsList]
+    for (let i = 0; i < this.myPostsList.length; i++) {
+      this.myPostsList[i]['myID'] = i
+      let num = getRandom(1, 15)
+      this.myPostsList[i]['randomIcon'] = this.iconsList[num]
+    }
+    console.log(this.myPostsList)
   },
   methods: {
     aaa() {
@@ -42,20 +73,20 @@ export default {
 </script>
 
 <style scoped>
+.icon {
+  font-size: 30px;
+}
 .content-box {
-  padding: 15px;
+  padding: 0 15px 0 15px;
 }
 .time-point {
   padding: 30px;
   height: 100px;
   display: flex;
   z-index: 50;
-  width: 100%;
+  width: 80%;
   position: relative;
   border: 1px solid red;
-}
-.blank {
-  width: 50%;
 }
 .content {
   width: 50%;
@@ -110,7 +141,7 @@ export default {
   margin-left: -3px;
 }
 .container {
-  padding: 15px;
+  padding: 0 15px 15px 15px;
 }
 p {
   margin: 0;
@@ -121,6 +152,7 @@ p {
   margin: 0;
 }
 body {
+  width: 100%;
   margin: 0;
   padding: 0;
   font-family: Roboto, basic-sans, sans-serif;
