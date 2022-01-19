@@ -2,7 +2,7 @@
   <div class="container">
     <div class="line" id="line">
       <div v-for="post in myPostsList" :key="post.id" :post="post" class="invis-height"></div>
-      <div class="invis-height"></div>
+      <div class="invis-height-short"></div>
     </div>
     <div class="time-line">
       <div class="left-column">
@@ -12,13 +12,13 @@
           :key="post.id"
           :post="post"
           class="box"
-          :class="{ none: post.myID % 2 == 1 }"
+          :class="{ none: post.myId % 2 == 1 }"
         >
-          <div v-if="post.myID % 2 == 0" class="content-box">
+          <div v-if="post.myId % 2 == 0" class="content-box">
             <i :class="post.randomIcon"></i>
             <div class="date">
               <p>
-                {{ post.registered }}
+                {{ `${post.myDate.getDate()} ${this.months[post.myDate.getMonth()]}` }}
               </p>
             </div>
             <div class="name">
@@ -32,7 +32,10 @@
                 {{ post.about }}
               </div>
             </div>
-            <div class="left-post-joint"></div>
+            <div class="left-post-joint">
+              <div class="blank"></div>
+              <div class="joint"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -43,13 +46,13 @@
           :key="post.id"
           :post="post"
           class="box"
-          :class="{ none: post.myID % 2 == 0 }"
+          :class="{ none: post.myId % 2 == 0 }"
         >
-          <div v-if="post.myID % 2 == 1" class="content-box">
+          <div v-if="post.myId % 2 == 1" class="content-box">
             <i :class="post.randomIcon"></i>
             <div class="date">
               <p>
-                {{ post.registered }}
+                {{ `${post.myDate.getDate()} ${this.months[post.myDate.getMonth()]}` }}
               </p>
             </div>
             <div class="name">
@@ -63,7 +66,10 @@
                 {{ post.about }}
               </div>
             </div>
-            <div class="right-post-joint"></div>
+            <div class="right-post-joint">
+              <div class="joint-right"></div>
+              <div class="blank"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -79,6 +85,7 @@ export default {
   name: 'HelloWorld',
   data() {
     return {
+      months: ['Jan', 'Fer', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
       postsList,
       iconsList,
       myPostsList: null,
@@ -90,13 +97,18 @@ export default {
     function getRandom(min, max) {
       return Math.floor(Math.random() * (max - min)) + min
     }
+
     this.myPostsList = [...this.postsList]
     for (let i = 0; i < this.myPostsList.length; i++) {
-      this.myPostsList[i]['myID'] = i
+      let str = this.myPostsList[i].registered.replace(/,/g, '')
+      let date = new Date(str)
+      this.myPostsList[i]['myDate'] = date
+
+      this.myPostsList[i]['myId'] = i
       let num = getRandom(1, 15)
       this.myPostsList[i]['randomIcon'] = this.iconsList[num]
     }
-    console.log(this.myPostsList)
+    // console.log(this.myPostsList)
   },
   methods: {
     aaa() {
@@ -108,24 +120,54 @@ export default {
 
 <style scoped>
 .left-post-joint {
-  border: 2px solid;
   position: relative;
-  width: 20%;
+  display: flex;
   z-index: 100;
-  left: 50px;
+  left: 18px;
   bottom: 45px;
   margin-left: auto;
+}
+.blank {
+  border: 2px solid rgba(13, 81, 132, 255);
+  height: 0;
+  width: 80%;
+  opacity: 0;
+}
+.joint {
+  border: 2px solid rgba(13, 81, 132, 255);
+  height: 0;
+  width: 20%;
+}
+.joint-right {
+  border: 2px solid rgba(13, 81, 132, 255);
+  height: 0;
+  width: 20%;
+}
+.joint::before {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  content: '\f111';
+  position: relative;
+  left: -50%;
+  top: -10px;
+  color: rgba(13, 81, 132, 255);
+}
+.joint-right::after {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  content: '\f111';
+  position: relative;
+  right: -50%;
+  top: -10px;
   color: rgba(13, 81, 132, 255);
 }
 .right-post-joint {
-  border: 2px solid;
+  display: flex;
   position: relative;
-  width: 20%;
   z-index: 100;
-  right: 50px;
+  right: 18px;
   bottom: 45px;
   margin-right: auto;
-  color: rgba(13, 81, 132, 255);
 }
 .none {
   display: none;
@@ -142,8 +184,9 @@ export default {
 }
 .box {
   min-height: 140px;
-  padding: 20px;
-  border: 1px solid slategrey;
+  max-height: 175px;
+  padding: 1rem 0.5rem;
+  /* border: 1px solid slategrey; */
 }
 .date {
   font-size: 20px;
@@ -168,11 +211,18 @@ export default {
   font-size: 30px;
 }
 .content-box {
-  padding: 0 30px 0 30px;
+  padding: 0 0.6rem;
 }
 
 .invis-height {
   height: 90px;
+  border: 1px solid red;
+  width: 50vw;
+  position: relative;
+  visibility: hidden;
+}
+.invis-height-short {
+  height: 20px;
   border: 1px solid red;
   width: 50vw;
   position: relative;
@@ -213,14 +263,15 @@ export default {
 }
 .line {
   border-left: 4px solid rgba(13, 81, 132, 255);
-  height: calc(auto + 100px);
+  height: calc(auto - 200px);
   position: absolute;
   left: 50%;
   top: 20px;
   margin-left: -3px;
 }
 .container {
-  padding: 0 15px 15px 15px;
+  padding: 0.5rem;
+  padding-top: 0;
 }
 p {
   margin: 0;
