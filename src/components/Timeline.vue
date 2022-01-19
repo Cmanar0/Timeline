@@ -1,5 +1,34 @@
 <template>
   <div class="container">
+    <DialogWin v-if="dialogOn" title="Details:" @close="CloseWin">
+      <template #default>
+        <div class="flex-info">
+          <div>
+            <p>Name:</p>
+            <p>Tags:</p>
+            <p>Date:</p>
+            <p>Description:</p>
+          </div>
+
+          <div>
+            <p>{{ dialogContent.name.first }} {{ dialogContent.name.last }}</p>
+            <span v-for="tag in dialogContent.tags" :key="tag" :tag="tag">{{ `${tag}, ` }}</span>
+            <p>
+              {{
+                `${dialogContent.myDate.getDate()}, ${
+                  this.months[dialogContent.myDate.getMonth()]
+                }, ${dialogContent.myDate.getFullYear()}`
+              }}
+            </p>
+
+            <p>{{ dialogContent.about }}</p>
+          </div>
+        </div>
+      </template>
+      <template #actions>
+        <button @click="CloseWin">Ok</button>
+      </template>
+    </DialogWin>
     <div class="line" id="line">
       <div v-for="post in myPostsList" :key="post.id" :post="post" class="invis-height"></div>
     </div>
@@ -13,7 +42,7 @@
           class="box mg-right-15"
           :class="{ none: post.myId % 2 == 1 }"
         >
-          <div v-if="post.myId % 2 == 0" class="content-box">
+          <div v-if="post.myId % 2 == 0" class="content-box" @click="setDialogOn(post)">
             <i :class="post.randomIcon"></i>
             <div class="date">
               <p>
@@ -77,13 +106,19 @@
 </template>
 
 <script>
+import DialogWin from './reusable/DialogWin.vue'
 import { postsList } from './data.js'
 import { iconsList } from './data.js'
 
 export default {
   name: 'HelloWorld',
+  components: {
+    DialogWin
+  },
   data() {
     return {
+      dialogOn: false,
+      dialogContent: null,
       months: ['Jan', 'Fer', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
       postsList,
       iconsList,
@@ -110,14 +145,24 @@ export default {
     // console.log(this.myPostsList)
   },
   methods: {
-    aaa() {
-      console.log('object')
+    CloseWin() {
+      this.dialogOn = false
+    },
+    setDialogOn(post) {
+      this.dialogContent = post
+      this.dialogOn = true
     }
   }
 }
 </script>
 
 <style scoped>
+.flex-info {
+  text-align: left;
+  display: flex;
+  gap: 20px;
+  justify-content: flex-start;
+}
 .left-post-joint {
   position: relative;
   display: flex;
