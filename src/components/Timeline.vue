@@ -319,7 +319,6 @@ export default {
 }
 .line {
   border-left: 4px solid rgba(13, 81, 132, 255);
-  max-height: calc(auto - 300px);
   position: absolute;
   z-index: 0;
   left: 50%;
