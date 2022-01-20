@@ -215,22 +215,14 @@ export const iconsList = [
   'icon fas fa-gem',
   'icon fas fa-newspaper',
   'icon fas fa-money-bill-alt',
-
   'icon far fa-address-book',
   'icon far fa-building',
   'icon far fa-calendar-alt',
-
   'icon far fa-chart-bar',
-
   'icon far fa-comment-alt',
-
   'icon far fa-compass',
-
   'icon far fa-edit',
-
   'icon far fa-credit-card',
-
   'icon far fa-file-archive',
-
   'icon far fa-folder-open'
 ]

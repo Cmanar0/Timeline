@@ -139,18 +139,29 @@ export default {
     function getRandom(min, max) {
       return Math.floor(Math.random() * (max - min)) + min
     }
+    function byDate(a, b) {
+      return new Date(a.myDate).valueOf() - new Date(b.myDate).valueOf()
+    }
 
     this.myPostsList = [...this.postsList]
     for (let i = 0; i < this.myPostsList.length; i++) {
       let str = this.myPostsList[i].registered.replace(/,/g, '')
       let date = new Date(str)
       this.myPostsList[i]['myDate'] = date
-
-      this.myPostsList[i]['myId'] = i
       let num = getRandom(1, 15)
       this.myPostsList[i]['randomIcon'] = this.iconsList[num]
     }
-    // console.log(this.myPostsList)
+    this.myPostsList = this.myPostsList.sort(byDate)
+    for (let i = 0; i < this.myPostsList.length; i++) {
+      if (i === 0) {
+        this.myPostsList[i]['myId'] = 0
+      } else if (i % 2 === 1) {
+        this.myPostsList[i]['myId'] = i
+      } else {
+        this.myPostsList[i]['myId'] = i + 2
+      }
+    }
+    console.log(this.myPostsList.sort(byDate))
   },
   methods: {
     CloseWin() {
